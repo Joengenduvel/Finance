@@ -24,10 +24,22 @@ describe('Finance controllers', function() {
       expect(scope.availableMonths.length).toEqual(scope.currentMonth);
 	  
     });
+	
+	
    
   });
 
 
-  describe('PhoneDetailCtrl', function(){
+  describe('MonthDetailCtrl', function(){
+  var scope, ctrl
+
+    beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
+      scope = $rootScope.$new();
+      ctrl = $controller(MonthDetailCtrl, {$scope: scope});
+    }));
+
+  it('should return the correct total value', function(){
+		expect(scope.totalValue()).toBe(20);
+	});
   });
 });

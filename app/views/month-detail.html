@@ -4,13 +4,13 @@
 </tr>
 <tr ng-repeat="payment in payments">
 <td>
-<input class="datepicker" type="text" myDatepicker ng-model="payment.date" />
+<input class="datepicker" type="date" ng-model="payment.dateString" />
 </td>
 <td>
 <input type="text" ng-model="payment.description" />
 </td>
 <td>
-<input type="text" ng-model="payment.value" />
+<input type="number" ng-model="payment.value" />
 </td>
 <td>
 <input type="button" ng-click="removePayment(payment)" value="Verwijder" /></input>
@@ -18,28 +18,23 @@
 </tr>
 <tr>
 <td>
-<input class="datepicker" type="text" myDatepicker ng-model="newPayment.date" />
+<input class="datepicker" type="date" date-fix ng-model="newPayment.dateString" />
 </td>
 <td>
 <input type="text" ng-model="newPayment.description" />
 </td>
 <td>
-<input type="text" ng-model="newPayment.value" />
+<input type="number" ng-model="newPayment.value" />
 </td>
 <td>
 <input type="button" ng-click="saveNewPayment()" value="Toevoegen" />
 </td>
 </tr>
+<tr>
+<td colspan="2">
+<b>Totaal</b>
+</td>
+<td>{{totalValue() | currency:EUR}}</td>
+<td></td>
+</tr>
 </table>
-<script>
-	$(function() {
-		$('input.datepicker').datepicker({
-			dateFormat: 'dd-mm-yy',
-			changeMonth: true, 
-			changeYear: true,
-			showOn: 'both',
-			buttonImageOnly: true
-		},
-		$.datepicker.regional['nl']);
-	});
-</script>

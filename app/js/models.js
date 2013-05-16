@@ -1,17 +1,21 @@
 
 //var date, description, value;
 
-function Payment (date, description, value){
-	this.date = date;
-	this.description = description;
-	this.value = value;
+function Payment (dateString, description, value){
+
+	this.date = new Date(dateString);
+	this.dateString = dateString;
+	this.value = typeof value !== 'undefined' ? value : 0;
 	
-	this.__defineGetter__("date", function(){
-        return date;
+	this.description = description;
+	
+	this.__defineGetter__("dateString", function(){
+        return dateString;
     });
 	
-	this.__defineSetter__("date", function(val){
-        date = val;
+	this.__defineSetter__("dateString", function(val){
+        date = new Date(val);
+		dateString = val;
 		markForSave(this);
     });
 	
@@ -29,7 +33,8 @@ function Payment (date, description, value){
     });
 	
 	this.__defineSetter__("value", function(val){
-        value = val;
+        //value = parseFloat(val);
+		value = val;
 		markForSave(this);
     });
 	
