@@ -1,27 +1,22 @@
-angular.module('finance', []).
-  config(['$routeProvider', function($routeProvider) {
+var financeModule = angular.module('finance', []);
+
+financeModule.config(['$routeProvider', function($routeProvider) {
   var currentDate = new Date();
   $routeProvider.
-      when('/months', {templateUrl: 'views/month-list.html',   controller: MonthListCtrl}).
-      when('/month/:date', {templateUrl: 'views/month-detail.html', controller: MonthDetailCtrl}).
+      when('/months', {templateUrl: 'views/month-list.html',   controller: 'MonthListCtrl'}).
+      when('/month/:date', {templateUrl: 'views/month-detail.html', controller: 'MonthDetailCtrl'}).
       otherwise({redirectTo: '/month/' + currentDate.toLocaleDateString()});
 }]);
 
-var directives = angular.module('directives', []);
- 
-directives.directive('dateFix', function() {
-    return {
-        restrict: 'A',
-        require: 'ngModel',
-        link: function (scope, element, attr, ngModel) {
-            element.on('change', function() {
-                scope.$apply(function () {
-                    ngModel.$setViewValue(element.val());
-                });         
-            });
-        }
-    };
+financeModule.controller('IndexCtrl', function IndexCtrl($scope){
+	$scope.title = "Financial app";
+	$scope.setTitle = function(title){
+		$scope.title = title;
+	};
+	injectDateFunctions($scope);
 });
+
+
 
 Date.prototype.toYMD = Date_toYMD;
     function Date_toYMD() {
@@ -37,3 +32,13 @@ Date.prototype.toYMD = Date_toYMD;
         }
         return year + "-" + month + "-" + day;
     }
+	
+function injectDateFunctions(scope){
+		scope.currentDate = new Date();
+		scope.currentDateString = scope.currentDate.toYMD();
+		scope.currentMonth = scope.currentDate.getMonth()+1;
+		scope.availableMonths=new Array();
+		for(var i = 0;i<scope.currentMonth;i++){
+		scope.availableMonths[i] = i+1;
+		}
+}

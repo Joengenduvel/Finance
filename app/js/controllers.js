@@ -1,22 +1,15 @@
 'use strict';
 
 
-function IndexCtrl($scope){
-	$scope.title = "Financial app";
-	$scope.setTitle = function(title){
-		$scope.title = title;
-	};
-	injectDateFunctions($scope);
-};
 
 
-function MonthListCtrl($scope){
+financeModule.controller('MonthListCtrl', function MonthListCtrl($scope){
 	$scope.setTitle("Maanden overzicht");
 	//injectDateFunctions($scope);
-};
+});
 
 
-function MonthDetailCtrl($scope){
+financeModule.controller('MonthDetailCtrl', function MonthDetailCtrl($scope){
 	$scope.setTitle("Maand overzicht");
 	//injectDateFunctions($scope);
 	$scope.payments = new Array();
@@ -42,20 +35,4 @@ function MonthDetailCtrl($scope){
 	return total;
 	};
 
-};
-
-function injectDateFunctions(scope){
-		scope.currentDate = new Date();
-		scope.currentDateString = scope.currentDate.toYMD();
-		scope.currentMonth = scope.currentDate.getMonth()+1;
-		scope.availableMonths=new Array();
-		for(var i = 0;i<scope.currentMonth;i++){
-		scope.availableMonths[i] = i+1;
-		}
-}
-
-
-
-IndexCtrl.$inject = ['$scope'];
-MonthListCtrl.$inject = ['$scope'];
-MonthDetailCtrl.$inject = ['$scope'];
+});
